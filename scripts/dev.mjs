@@ -9,6 +9,7 @@ const child = spawn(
   ['run', '--name', 'weather-starter', 'tsx', 'watch', 'backend/src/server.ts'],
   {
     stdio: 'inherit',
+    shell: true,
     env: {
       ...process.env,
       NODE_OPTIONS: nodeOptions,

@@ -1,7 +1,7 @@
 import { useStore } from '../state/store';
 import { CloudIcon, HomeIcon } from './icons';
 import { formatTemperature, formatTime } from './format';
-import type { KeyboardEvent } from 'react';
+import type { KeyboardEvent, MouseEvent } from 'react';
 import type { Location } from '../types';
 
 interface SidebarCardProps {
@@ -10,7 +10,7 @@ interface SidebarCardProps {
 }
 
 export function SidebarCard({ location, isHome }: SidebarCardProps) {
-  const { selectedId, select } = useStore();
+  const { selectedId, select, remove } = useStore();
   const isSelected = selectedId === location.id;
   const observed = formatTime(location.weather.observed_at);
   const area =
@@ -28,6 +28,12 @@ export function SidebarCard({ location, isHome }: SidebarCardProps) {
       onSelect();
     }
   };
+
+  const onDelete = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    void remove(location.id);
+  };
+
   return (
     <div
       role="button"
@@ -41,6 +47,16 @@ export function SidebarCard({ location, isHome }: SidebarCardProps) {
           : 'border-white/10 bg-white/[0.07] hover:bg-white/[0.12]'
       }`}
     >
+      <button
+        type="button"
+        onClick={onDelete}
+        aria-label={`Delete ${area}`}
+        className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-white/60 transition hover:bg-red-500/80 hover:text-white"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3">
+          <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z" />
+        </svg>
+      </button>
       <div className="flex items-start justify-between gap-3 px-4 pt-3">
         <div className="min-w-0">
           <div className="truncate text-lg font-semibold leading-tight text-white">{area}</div>
