@@ -28,6 +28,17 @@ input:focus-visible {
   @apply outline-none ring-2 ring-white/40 ring-offset-0;
 }
 
+/* Visible focus indication for map pins when navigated via keyboard (Requirement 6.7) */
+.location-marker-icon {
+  outline: none;
+}
+
+.location-marker-pin:focus-visible {
+  outline: none;
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7), 0 0 0 4px rgba(59, 130, 246, 0.8);
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

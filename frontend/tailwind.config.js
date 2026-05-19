@@ -14,6 +14,15 @@ export default {
           700: '#0369a1',
         },
       },
+      keyframes: {
+        'fullscreen-fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'fullscreen-fade-in': 'fullscreen-fade-in 300ms ease-out forwards',
+      },
     },
   },
   plugins: [],
